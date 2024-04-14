@@ -12,13 +12,13 @@ use Laravel\Octane\Events\WorkerErrorOccurred;
 use Laravel\Octane\Events\WorkerStarting;
 use Laravel\Octane\Events\WorkerStopping;
 use Laravel\Octane\Listeners\CloseMonologHandlers;
-use Laravel\Octane\Listeners\CollectGarbage;
-use Laravel\Octane\Listeners\DisconnectFromDatabases;
+// use Laravel\Octane\Listeners\CollectGarbage;
+// use Laravel\Octane\Listeners\DisconnectFromDatabases;
 use Laravel\Octane\Listeners\EnsureUploadedFilesAreValid;
 use Laravel\Octane\Listeners\EnsureUploadedFilesCanBeMoved;
 use Laravel\Octane\Listeners\FlushOnce;
 use Laravel\Octane\Listeners\FlushTemporaryContainerInstances;
-use Laravel\Octane\Listeners\FlushUploadedFiles;
+// use Laravel\Octane\Listeners\FlushUploadedFiles;
 use Laravel\Octane\Listeners\ReportException;
 use Laravel\Octane\Listeners\StopWorkerIfNecessary;
 use Laravel\Octane\Octane;
@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'server' => env('OCTANE_SERVER', 'roadrunner'),
+    'server' => env('OCTANE_SERVER', 'swoole'),
 
     /*
     |--------------------------------------------------------------------------
@@ -221,4 +221,16 @@ return [
 
     'max_execution_time' => 30,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Swoole Config
+    |--------------------------------------------------------------------------
+    */
+
+    'swoole' => [
+        'options' => [
+            'log_file' => storage_path('logs/swoole_http.log'),
+            'package_max_length' => 10 * 1024 * 1024,
+        ],
+    ],
 ];
