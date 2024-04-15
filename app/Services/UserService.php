@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\User;
+use App\Models\{
+    User,
+    Topic,
+};
+
 use App\Dto\SubscriptionsTopicDto;
 use App\Repositories\UserRepository;
 
@@ -31,5 +35,21 @@ class UserService extends BaseService
             'name' => 'anonymous User',
             'email' => $data->email,
         ]);
+    }
+
+    /**
+     * Subscribe user to the specific topic by Admin
+     *
+     * @param \App\Models\Topic $topic
+     * @param \App\Models\User $user
+     *
+     * @return void
+     */
+    public function subscriptionsByAdmin(Topic $topic, User $user): void
+    {
+        $alreadySubscribed = $this->userRepository->checkUserAlreadySubscribedInTopic($user, $topic);
+
+        if (!$alreadySubscribed)
+            $this->userRepository->subscriptionUserInTopic($user, $topic);
     }
 }

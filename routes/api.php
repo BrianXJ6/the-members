@@ -17,6 +17,11 @@ Route::controller(AdminController::class)
             Route::post('/', 'storeTopic')->name('store');
             Route::put('{topic}', 'updateTopic')->name('update');
             Route::delete('{topic}', 'deleteTopic')->name('delete');
+
+            // Group for users subscribed
+            Route::prefix('{topic}/users/{user}')->name('users.')->group(function () {
+                Route::post('subscribe', 'subscribe')->name('subscribe');
+            });
         });
     });
 

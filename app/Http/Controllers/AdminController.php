@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{
+    User,
+    Topic,
+};
+
 use App\Services\{
     UserService,
     TopicService,
@@ -18,7 +23,6 @@ use App\Http\Resources\{
     AdminStoreTopicResource,
 };
 
-use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -90,6 +94,21 @@ class AdminController extends Controller
     public function deleteTopic(Topic $topic): JsonResponse
     {
         $this->topicService->delete($topic);
+
+        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Subscribe user to the specific topic
+     *
+     * @param \App\Models\Topic $topic
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function subscribe(Topic $topic, User $user): JsonResponse
+    {
+        $this->userService->subscriptionsByAdmin($topic, $user);
 
         return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
