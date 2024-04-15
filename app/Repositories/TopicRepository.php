@@ -72,4 +72,18 @@ class TopicRepository extends BaseRepository
     {
         $topic->users()->attach($user);
     }
+
+    /**
+     * Get list of messages to a specific topic
+     *
+     * @param int|\App\Models\Topic $target
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function messages(int|Topic $target): Collection
+    {
+        $model = $this->resolveTarget($target);
+
+        return $model->messages()->with('messageable')->get();
+    }
 }

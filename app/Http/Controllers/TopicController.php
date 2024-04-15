@@ -10,6 +10,7 @@ use App\Services\{
 use App\Http\Resources\{
     ShowTopicResource,
     ShowTopicCollection,
+    MessagesTopicResouce,
     SubscribersTopicResouce,
 };
 
@@ -60,7 +61,7 @@ class TopicController extends Controller
     }
 
     /**
-     * Get all messages from a specific topic
+     * Get list of users subscribed to a specific topic
      *
      * @param \App\Models\Topic $topic
      *
@@ -85,5 +86,17 @@ class TopicController extends Controller
         $this->topicService->subscriptionsByTopic($topic, $user);
 
         return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Get list of messages to a specific topic
+     *
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    public function messages(Topic $topic): ResourceCollection
+    {
+        return MessagesTopicResouce::collection($this->topicService->messages($topic));
     }
 }

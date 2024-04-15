@@ -30,4 +30,7 @@ Route::controller(TopicController::class)
             Route::get('/', 'subscribers')->name('subscribers');
             Route::post('/', 'subscriptions')->name('subscriptions');
         });
+        Route::prefix('{topic}/messages')->name('messages.')->group(function () {
+            Route::get('/', 'messages')->name('messages');
+        });
     });
