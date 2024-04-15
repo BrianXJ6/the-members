@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Dto\SubscriptionsTopicDto;
 use App\Repositories\UserRepository;
 
 class UserService extends BaseService
@@ -14,5 +16,20 @@ class UserService extends BaseService
     public function __construct(private UserRepository $userRepository)
     {
         parent::__construct($userRepository);
+    }
+
+    /**
+     * Create User by subscriptions topic
+     *
+     * @param \App\Dto\SubscriptionsTopicDto $data
+     *
+     * @return \App\Models\User
+     */
+    public function subscriptionsByTopic(SubscriptionsTopicDto $data): User
+    {
+        return $data->user ?: $this->create([
+            'name' => 'anonymous User',
+            'email' => $data->email,
+        ]);
     }
 }

@@ -28,5 +28,6 @@ Route::controller(TopicController::class)
         Route::get('{topic}', 'show')->name('show');
         Route::prefix('{topic}/users')->name('users.')->group(function () {
             Route::get('/', 'subscribers')->name('subscribers');
+            Route::post('/', 'subscriptions')->name('subscriptions');
         });
     });

@@ -2,7 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\Topic;
+use App\Models\{
+    User,
+    Topic,
+};
+
 use App\Dto\StoreTopicDto;
 use Illuminate\Support\Collection;
 
@@ -54,5 +58,18 @@ class TopicRepository extends BaseRepository
         $model = $this->resolveTarget($target);
 
         return $model->users;
+    }
+
+    /**
+     * User subscriptions to the specific topic
+     *
+     * @param \App\Models\Topic $topic
+     * @param \App\Models\User $user
+     *
+     * @return void
+     */
+    public function subscriptionsByTopic(Topic $topic, User $user): void
+    {
+        $topic->users()->attach($user);
     }
 }

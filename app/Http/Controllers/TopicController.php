@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\{
+    UserService,
+    TopicService,
+};
+
 use App\Http\Resources\{
     ShowTopicResource,
     ShowTopicCollection,
@@ -14,7 +19,8 @@ use Illuminate\Http\Resources\Json\{
 };
 
 use App\Models\Topic;
-use App\Services\TopicService;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\SubscriptionsTopicRequest;
 
 class TopicController extends Controller
 {
@@ -22,9 +28,12 @@ class TopicController extends Controller
      * Create a new Topic Controller instance
      *
      * @param \App\Services\TopicService $topicService
+     * @param \App\Services\UserService $userService
      */
-    public function __construct(private TopicService $topicService)
-    {
+    public function __construct(
+        private TopicService $topicService,
+        private UserService $userService,
+    ) {
         //
     }
 
@@ -60,5 +69,21 @@ class TopicController extends Controller
     public function subscribers(Topic $topic): ResourceCollection
     {
         return SubscribersTopicResouce::collection($this->topicService->subscribers($topic));
+    }
+
+    /**
+     * User subscriptions to the specific topic
+     *
+     * @param \App\Http\Requests\SubscriptionsTopicRequest $request
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function subscriptions(SubscriptionsTopicRequest $request, Topic $topic): JsonResponse
+    {
+        $user = $this->userService->subscriptionsByTopic($request->data());
+        $this->topicService->subscriptionsByTopic($topic, $user);
+
+        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
 }
