@@ -14,7 +14,7 @@ class AdminController extends Controller
      *
      * @param \App\Services\UserService $userService
      */
-    public function __construct(public UserService $userService)
+    public function __construct(private UserService $userService)
     {
         //
     }
