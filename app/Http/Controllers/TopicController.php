@@ -40,7 +40,7 @@ class TopicController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified topic in storage.
      *
      * @param \App\Http\Requests\UpdateTopicRequest $request
      * @param \App\Models\Topic $topic
@@ -50,6 +50,20 @@ class TopicController extends Controller
     public function update(UpdateTopicRequest $request, Topic $topic): JsonResponse
     {
         $this->topicService->update($request->data()->toArray(), $topic);
+
+        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Remove the specified topic from storage.
+     *
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Topic $topic): JsonResponse
+    {
+        $this->topicService->delete($topic);
 
         return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
