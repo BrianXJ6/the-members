@@ -12,10 +12,6 @@ Route::controller(AdminController::class)
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        // Apis resources
-        Route::apiResources([
-            'topics' => TopicController::class,
-        ]);
-
+        Route::resource('topics', TopicController::class)->only('store', 'update', 'destroy');
         Route::post('create-user', 'createUser')->name('create-user');
     });

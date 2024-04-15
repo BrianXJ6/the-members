@@ -2,6 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\{
+    StoreTopicRequest,
+    UpdateTopicRequest,
+};
+
+use App\Models\Topic;
+use App\Services\TopicService;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\StoreTopicResource;
+use Illuminate\Http\Resources\Json\JsonResource;
+
 class TopicController extends Controller
 {
     /**
@@ -26,5 +37,20 @@ class TopicController extends Controller
         return StoreTopicResource::make(
             $this->topicService->createByAdmin($request->data())
         );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \App\Http\Requests\UpdateTopicRequest $request
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateTopicRequest $request, Topic $topic): JsonResponse
+    {
+        $this->topicService->update($request->data()->toArray(), $topic);
+
+        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
 }
