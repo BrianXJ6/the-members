@@ -10,12 +10,17 @@ use App\Http\Requests\{
 use App\Http\Resources\{
     ShowTopicResource,
     StoreTopicResource,
+    ShowTopicCollection,
+};
+
+use Illuminate\Http\Resources\Json\{
+    JsonResource,
+    ResourceCollection,
 };
 
 use App\Models\Topic;
 use App\Services\TopicService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class TopicController extends Controller
 {
@@ -27,6 +32,16 @@ class TopicController extends Controller
     public function __construct(private TopicService $topicService)
     {
         //
+    }
+
+    /**
+     * Display a listing of the topics.
+     *
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    public function index(): ResourceCollection
+    {
+        return ShowTopicCollection::make($this->topicService->listAll());
     }
 
     /**

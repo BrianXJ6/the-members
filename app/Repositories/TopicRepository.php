@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Topic;
 use App\Dto\StoreTopicDto;
+use Illuminate\Support\Collection;
 
 class TopicRepository extends BaseRepository
 {
@@ -28,5 +29,16 @@ class TopicRepository extends BaseRepository
         $topic->save();
 
         return $topic;
+    }
+
+    /**
+     * Display a listing of the topics.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function listAll(): Collection
+    {
+        $query = $this->with('admin:id,name');
+        return $query->get();
     }
 }
