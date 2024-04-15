@@ -7,10 +7,14 @@ use App\Http\Requests\{
     UpdateTopicRequest,
 };
 
+use App\Http\Resources\{
+    ShowTopicResource,
+    StoreTopicResource,
+};
+
 use App\Models\Topic;
 use App\Services\TopicService;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\StoreTopicResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TopicController extends Controller
@@ -37,6 +41,18 @@ class TopicController extends Controller
         return StoreTopicResource::make(
             $this->topicService->createByAdmin($request->data())
         );
+    }
+
+    /**
+     * Display the specified topic.
+     *
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\Resources\Json\JsonResource
+     */
+    public function show(Topic $topic): JsonResource
+    {
+        return ShowTopicResource::make($topic);
     }
 
     /**

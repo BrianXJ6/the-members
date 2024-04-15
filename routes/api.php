@@ -15,3 +15,5 @@ Route::controller(AdminController::class)
         Route::resource('topics', TopicController::class)->only('store', 'update', 'destroy');
         Route::post('create-user', 'createUser')->name('create-user');
     });
+
+Route::resource('topics', TopicController::class)->only('index', 'show');
