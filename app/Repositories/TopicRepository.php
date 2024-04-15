@@ -41,4 +41,18 @@ class TopicRepository extends BaseRepository
         $query = $this->with('admin:id,name');
         return $query->get();
     }
+
+    /**
+     * Get all messages from a specific topic
+     *
+     * @param int|\App\Models\Topic $target
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function subscribers(int|Topic $target): Collection
+    {
+        $model = $this->resolveTarget($target);
+
+        return $model->users;
+    }
 }

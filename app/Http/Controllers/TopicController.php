@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\{
     ShowTopicResource,
     ShowTopicCollection,
+    SubscribersTopicResouce,
 };
 
 use Illuminate\Http\Resources\Json\{
@@ -47,5 +48,17 @@ class TopicController extends Controller
     public function show(Topic $topic): JsonResource
     {
         return ShowTopicResource::make($topic);
+    }
+
+    /**
+     * Get all messages from a specific topic
+     *
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    public function subscribers(Topic $topic): ResourceCollection
+    {
+        return SubscribersTopicResouce::collection($this->topicService->subscribers($topic));
     }
 }
