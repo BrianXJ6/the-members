@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\{
+    MorphMany,
     BelongsToMany,
 };
 
@@ -32,5 +33,15 @@ class User extends Authenticatable
     public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Topic::class);
+    }
+
+    /**
+     * Get all of the message's.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function messages(): MorphMany
+    {
+        return $this->morphMany(Message::class, 'messageable');
     }
 }

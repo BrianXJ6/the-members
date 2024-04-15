@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\{
     HasMany,
+    MorphMany,
 };
 
 use Illuminate\Notifications\Notifiable;
@@ -32,5 +33,15 @@ class Admin extends Authenticatable
     public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);
+    }
+
+    /**
+     * Get all of the message's.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function messages(): MorphMany
+    {
+        return $this->morphMany(Message::class, 'messageable');
     }
 }
