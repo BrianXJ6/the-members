@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\{
+    BelongsToMany,
+};
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,4 +23,14 @@ class User extends Authenticatable
         'name',
         'email',
     ];
+
+    /**
+     * The topics that belong to the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function topics(): BelongsToMany
+    {
+        return $this->belongsToMany(Topic::class);
+    }
 }
