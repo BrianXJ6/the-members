@@ -112,4 +112,19 @@ class AdminController extends Controller
 
         return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
+
+    /**
+     * Unsubscribe user associated with specific topic
+     *
+     * @param \App\Models\Topic $topic
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unsubscribe(Topic $topic, User $user): JsonResponse
+    {
+        $this->userService->unsubscribeByAdmin($topic, $user);
+
+        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+    }
 }

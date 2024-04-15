@@ -40,4 +40,17 @@ class UserRepository extends BaseRepository
     {
         $user->topics()->attach($topic);
     }
+
+    /**
+     * Unsubscribe user to the specific topic
+     *
+     * @param \App\Models\Topic $topic
+     * @param \App\Models\User $user
+     *
+     * @return void
+     */
+    public function unsubscribeByAdmin(Topic $topic, User $user): void
+    {
+        $user->topics()->detach($topic);
+    }
 }

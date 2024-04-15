@@ -21,6 +21,7 @@ Route::controller(AdminController::class)
             // Group for users subscribed
             Route::prefix('{topic}/users/{user}')->name('users.')->group(function () {
                 Route::post('subscribe', 'subscribe')->name('subscribe');
+                Route::post('unsubscribe', 'unsubscribe')->name('unsubscribe');
             });
         });
     });
