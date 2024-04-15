@@ -36,7 +36,7 @@ class TopicRepository extends BaseRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function listAll(): Collection
+    public function list(): Collection
     {
         $query = $this->with('admin:id,name');
         return $query->get();

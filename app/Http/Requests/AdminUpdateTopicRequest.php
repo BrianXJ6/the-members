@@ -7,7 +7,7 @@ use App\Dto\UpdateTopicDto;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTopicRequest extends FormRequest
+class AdminUpdateTopicRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

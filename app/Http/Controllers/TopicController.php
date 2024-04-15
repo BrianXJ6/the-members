@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{
-    StoreTopicRequest,
-    UpdateTopicRequest,
-};
-
 use App\Http\Resources\{
     ShowTopicResource,
-    StoreTopicResource,
     ShowTopicCollection,
 };
 
@@ -20,7 +14,6 @@ use Illuminate\Http\Resources\Json\{
 
 use App\Models\Topic;
 use App\Services\TopicService;
-use Illuminate\Http\JsonResponse;
 
 class TopicController extends Controller
 {
@@ -39,23 +32,9 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function index(): ResourceCollection
+    public function list(): ResourceCollection
     {
-        return ShowTopicCollection::make($this->topicService->listAll());
-    }
-
-    /**
-     * Store a newly created topic in storage.
-     *
-     * @param \App\Http\Requests\StoreTopicRequest $request
-     *
-     * @return \Illuminate\Http\Resources\Json\JsonResource
-     */
-    public function store(StoreTopicRequest $request): JsonResource
-    {
-        return StoreTopicResource::make(
-            $this->topicService->createByAdmin($request->data())
-        );
+        return ShowTopicCollection::make($this->topicService->list());
     }
 
     /**
@@ -68,34 +47,5 @@ class TopicController extends Controller
     public function show(Topic $topic): JsonResource
     {
         return ShowTopicResource::make($topic);
-    }
-
-    /**
-     * Update the specified topic in storage.
-     *
-     * @param \App\Http\Requests\UpdateTopicRequest $request
-     * @param \App\Models\Topic $topic
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateTopicRequest $request, Topic $topic): JsonResponse
-    {
-        $this->topicService->update($request->data()->toArray(), $topic);
-
-        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Remove the specified topic from storage.
-     *
-     * @param \App\Models\Topic $topic
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(Topic $topic): JsonResponse
-    {
-        $this->topicService->delete($topic);
-
-        return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
     }
 }

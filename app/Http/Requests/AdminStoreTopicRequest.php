@@ -7,7 +7,7 @@ use App\Dto\StoreTopicDto;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTopicRequest extends FormRequest
+class AdminStoreTopicRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

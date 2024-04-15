@@ -12,8 +12,18 @@ Route::controller(AdminController::class)
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::resource('topics', TopicController::class)->only('store', 'update', 'destroy');
         Route::post('create-user', 'createUser')->name('create-user');
+        Route::prefix('topics')->name('topics.')->group(function () {
+            Route::post('/', 'storeTopic')->name('store');
+            Route::put('{topic}', 'updateTopic')->name('update');
+            Route::delete('{topic}', 'deleteTopic')->name('delete');
+        });
     });
 
-Route::resource('topics', TopicController::class)->only('index', 'show');
+Route::controller(TopicController::class)
+    ->prefix('topics')
+    ->name('topics.')
+    ->group(function () {
+        Route::get('/', 'list')->name('list');
+        Route::get('{topic}', 'show')->name('show');
+    });
