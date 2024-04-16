@@ -12,7 +12,7 @@ class SubscriptionsTopicDto extends BaseDto
     /**
      * Create a new Admin Create User Dto instance
      *
-     * @param string $name
+     * @param string $email
      * @param \App\Models\Topic $topic
      * @param null|\App\Models\User $user
      */
