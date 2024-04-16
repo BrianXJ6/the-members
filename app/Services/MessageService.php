@@ -34,7 +34,7 @@ class MessageService extends BaseService
     public function sendMessage(SendMessageDto $data, Topic $topic): Message
     {
         $message = $this->messageRepository->sendMessage($data, $topic);
-        NotificationNewMsgInTopic::dispatch($data->messageable->name, $topic);
+        NotificationNewMsgInTopic::dispatch($data, $topic);
 
         return $message;
     }

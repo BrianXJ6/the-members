@@ -2,12 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Models\Topic;
 use Illuminate\Queue\{
     SerializesModels,
     InteractsWithQueue,
 };
 
+use App\Models\Topic;
+use App\Dto\SendMessageDto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,11 +22,11 @@ class NotificationNewMsgInTopic implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param string $userName
+     * @param \App\Dto\SendMessageDto $data
      * @param \App\Models\Topic $topic
      */
     public function __construct(
-        private string $userName,
+        private SendMessageDto $data,
         private Topic $topic,
     ) {
         //
@@ -41,8 +42,9 @@ class NotificationNewMsgInTopic implements ShouldQueue
         $emails = $this->topic->users->pluck('email')->toArray();
 
         Mail::to($emails)->queue(new MailNotificationNewMsgInTopic(
-            $this->userName,
+            $this->data->messageable->name,
             $this->topic->name,
+            $this->data->message,
         ));
     }
 }

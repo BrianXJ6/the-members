@@ -20,10 +20,12 @@ class NotificationNewMsgInTopic extends Mailable
      *
      * @param string $userName
      * @param string $topicName
+     * @param string $topicMessage
      */
     public function __construct(
         private string $userName,
         private string $topicName,
+        private string $topicMessage,
     ) {
         //
     }
@@ -50,6 +52,7 @@ class NotificationNewMsgInTopic extends Mailable
             with: [
                 'user_name' => $this->userName,
                 'topic_name' => $this->topicName,
+                'topic_message' => $this->topicMessage,
             ]
         );
     }
