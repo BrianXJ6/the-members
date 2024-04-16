@@ -86,4 +86,16 @@ class TopicRepository extends BaseRepository
 
         return $model->messages()->with('messageable')->get();
     }
+
+    /**
+     * List all topics that the logged in user is subscribed
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function listTopicsByLoggedUser(): Collection
+    {
+        return $this->with('admin')
+            ->whereRelation('users', 'users.id', auth()->id())
+            ->get();
+    }
 }

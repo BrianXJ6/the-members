@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    UserController,
     AdminController,
     TopicController,
 };
@@ -28,6 +29,17 @@ Route::controller(AdminController::class)
             Route::prefix('{topic}/message')->name('messages.')->group(function () {
                 Route::post('/', 'sendMessage')->name('send');
             });
+        });
+    });
+
+Route::controller(UserController::class)
+    ->middleware('auth:user')
+    ->prefix('users')
+    ->name('users.')
+    ->group(function () {
+        // Group for topics
+        Route::prefix('topics')->name('topics.')->group(function () {
+            Route::get('/', 'topicList')->name('list');
         });
     });
 
