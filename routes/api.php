@@ -42,6 +42,11 @@ Route::controller(UserController::class)
         // Group for topics
         Route::prefix('topics')->name('topics.')->group(function () {
             Route::get('/', 'topicList')->name('list');
+
+            // Group for messages
+            Route::prefix('{topic}/message')->name('messages.')->group(function () {
+                Route::post('/', 'sendMessage')->name('send');
+            });
         });
     });
 
