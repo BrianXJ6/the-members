@@ -10,15 +10,18 @@ use App\Models\{
 use App\Services\{
     UserService,
     TopicService,
+    MessageService,
 };
 
 use App\Http\Requests\{
     AdminCreateUserRequest,
     AdminStoreTopicRequest,
     AdminUpdateTopicRequest,
+    AdminSendMessageRequest,
 };
 
 use App\Http\Resources\{
+    SendMessageResource,
     AdminCreateUserResource,
     AdminStoreTopicResource,
 };
@@ -33,10 +36,12 @@ class AdminController extends Controller
      *
      * @param \App\Services\UserService $userService
      * @param \App\Services\TopicService $topicService
+     * @param \App\Services\MessageService $messageService
      */
     public function __construct(
         private UserService $userService,
         private TopicService $topicService,
+        private MessageService $messageService,
     ) {
         //
     }
@@ -126,5 +131,20 @@ class AdminController extends Controller
         $this->userService->unsubscribeByAdmin($topic, $user);
 
         return new JsonResponse(status: JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Post a message to a specific topic
+     *
+     * @param \App\Http\Requests\AdminSendMessageRequest $request
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\Resources\Json\JsonResource
+     */
+    public function sendMessage(AdminSendMessageRequest $request, Topic $topic): JsonResource
+    {
+        return SendMessageResource::make(
+            $this->messageService->sendMessage($request->data(), $topic)
+        );
     }
 }

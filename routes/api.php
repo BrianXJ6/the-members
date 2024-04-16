@@ -23,6 +23,11 @@ Route::controller(AdminController::class)
                 Route::post('subscribe', 'subscribe')->name('subscribe');
                 Route::post('unsubscribe', 'unsubscribe')->name('unsubscribe');
             });
+
+            // Group for messages
+            Route::prefix('{topic}/message')->name('messages.')->group(function () {
+                Route::post('/', 'sendMessage')->name('send');
+            });
         });
     });
 
