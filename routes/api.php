@@ -14,6 +14,8 @@ Route::controller(AdminController::class)
     ->name('admin.')
     ->group(function () {
         Route::post('create-user', 'createUser')->name('create-user');
+
+        // Group for topics
         Route::prefix('topics')->name('topics.')->group(function () {
             Route::post('/', 'storeTopic')->name('store');
             Route::put('{topic}', 'updateTopic')->name('update');
@@ -49,10 +51,14 @@ Route::controller(TopicController::class)
     ->group(function () {
         Route::get('/', 'list')->name('list');
         Route::get('{topic}', 'show')->name('show');
+
+        // Group for users
         Route::prefix('{topic}/users')->name('users.')->group(function () {
             Route::get('/', 'subscribers')->name('subscribers');
             Route::post('/', 'subscriptions')->name('subscriptions');
         });
+
+        // Group for messages
         Route::prefix('{topic}/messages')->name('messages.')->group(function () {
             Route::get('/', 'messages')->name('messages');
         });
