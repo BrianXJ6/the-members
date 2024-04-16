@@ -19,13 +19,9 @@ class ShowTopicResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'admin_id' => $this->admin_id,
             'name' => $this->name,
+            'created_by' => $this->admin->name,
             'created_at' => Carbon::parse($this->created_at)->format('d/m/Y H:i:s'),
-            'updated_at' => Carbon::parse($this->updated_at)->format('d/m/Y H:i:s'),
-            'admin' => [
-                'name' => $this->admin->name,
-            ]
         ];
     }
 }
