@@ -5,7 +5,6 @@ namespace App\Dto;
 use App\Models\{
     User,
     Admin,
-    Topic,
 };
 
 class SendMessageDto extends BaseDto
