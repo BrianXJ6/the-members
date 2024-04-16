@@ -8,6 +8,7 @@ use App\Models\{
 };
 
 use App\Dto\SendMessageDto;
+use App\Jobs\NotificationNewMsgInTopic;
 use App\Repositories\MessageRepository;
 
 class MessageService extends BaseService
@@ -33,8 +34,7 @@ class MessageService extends BaseService
     public function sendMessage(SendMessageDto $data, Topic $topic): Message
     {
         $message = $this->messageRepository->sendMessage($data, $topic);
-
-        // DISPARAR EMAIL PARA INSCRITOS APÓS NOVA MSG...
+        NotificationNewMsgInTopic::dispatch($data->messageable->name, $topic);
 
         return $message;
     }
