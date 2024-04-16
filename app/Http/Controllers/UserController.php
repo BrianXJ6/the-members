@@ -48,6 +48,20 @@ class UserController extends Controller
     }
 
     /**
+     * List messages from a subscribed topic with logged in Users
+     *
+     * @param \App\Models\Topic $topic
+     *
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    public function messageList(Topic $topic): ResourceCollection
+    {
+        return SendMessageResource::collection(
+            $this->messageService->listMessagesFromTopicByLoggedUser($topic)
+        );
+    }
+
+    /**
      * Send message with user logged in to a specific topic
      *
      * @param \App\Http\Requests\UserSendMessageRequest $request
