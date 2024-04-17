@@ -41,10 +41,12 @@ class NotificationNewMsgInTopic implements ShouldQueue
     {
         $emails = $this->topic->users->pluck('email')->toArray();
 
-        Mail::to($emails)->queue(new MailNotificationNewMsgInTopic(
-            $this->data->messageable->name,
-            $this->topic->name,
-            $this->data->message,
-        ));
+        if (count($emails) >= 1) {
+            Mail::to($emails)->queue(new MailNotificationNewMsgInTopic(
+                $this->data->messageable->name,
+                $this->topic->name,
+                $this->data->message,
+            ));
+        }
     }
 }
