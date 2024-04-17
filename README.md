@@ -61,7 +61,7 @@ vendor/bin/sail up -d
 Run the database migrations and install the NPM dependencies.
 
 ```bash
-vendor/bin/sail artisan migrate
+vendor/bin/sail artisan migrate --seed
 vendor/bin/sail npm i
 ```
 
