@@ -25,7 +25,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_create_user_flow(): void
+    public function test_admins_endpoint_create_user_flow(): void
     {
         $this->actingAs(Admin::factory()->newModel(), 'admin')
             ->withoutExceptionHandling()
@@ -48,7 +48,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_store_topic_flow(): void
+    public function test_admins_endpoint_store_topic_flow(): void
     {
         $admin = Admin::factory()->create();
 
@@ -69,7 +69,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_update_topic_flow(): void
+    public function test_admins_endpoint_update_topic_flow(): void
     {
         $admin = Admin::factory()->hasTopics(1)->create();
         $topic = Topic::factory()->for($admin)->create();
@@ -88,7 +88,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_delete_topic_flow(): void
+    public function test_admins_endpoint_delete_topic_flow(): void
     {
         $admin = Admin::factory()->hasTopics(1)->create();
         $topic = Topic::factory()->for($admin)->create();
@@ -104,7 +104,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_subscribe_flow(): void
+    public function test_admins_endpoint_subscribe_flow(): void
     {
         $admin = Admin::factory()->hasTopics(1)->create();
         $topic = Topic::factory()->for($admin)->create();
@@ -124,7 +124,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_unsubscribe_flow(): void
+    public function test_admins_endpoint_unsubscribe_flow(): void
     {
         $admin = Admin::factory()->hasTopics(1)->create();
         $topic = Topic::factory()->for($admin)->create();
@@ -144,7 +144,7 @@ class AdminControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_endpoint_send_message_flow(): void
+    public function test_admins_endpoint_send_message_flow(): void
     {
         $admin = Admin::factory()->hasTopics(1)->create();
         $topic = Topic::factory()->for($admin)->create();

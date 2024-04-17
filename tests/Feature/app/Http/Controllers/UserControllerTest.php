@@ -26,7 +26,7 @@ class UserControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_topic_list_flow(): void
+    public function test_users_endpoint_topic_list_flow(): void
     {
         $user = User::factory()
             ->has(Topic::factory()->count(3)->for(Admin::factory()->create()))
@@ -53,7 +53,7 @@ class UserControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_message_list_flow(): void
+    public function test_users_endpoint_message_list_flow(): void
     {
         $user = User::factory()->create();
         $topic = Topic::factory()->for(Admin::factory()->create())->hasAttached($user)->create();
@@ -79,7 +79,7 @@ class UserControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_send_message_flow(): void
+    public function test_users_endpoint_send_message_flow(): void
     {
         $topic = Topic::factory()->forAdmin()->create();
         $user = User::factory()->hasAttached($topic)->create();
